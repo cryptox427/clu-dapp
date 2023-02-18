@@ -318,7 +318,7 @@ function App() {
                 <div className="mint-area flex justify-center flex-col items-center ">
                   <div className={'flex w-full justify-center items-center text-5xl font-semibold text-color my-10'}>MINT</div>
                   {mintSuccess == false ? 
-                  <div className='flex w-1/3 justify-center items-center flex-col'>
+                  <div className='flex w-1/3 justify-center items-center flex-col w-100'>
                     <div className='mint_amount flex flex-row'>
                       <button className="rounded-full w-8 ctrl-number" onClick={subMintNumber}>
                         -
