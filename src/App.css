@@ -198,7 +198,7 @@ input::-webkit-inner-spin-button {
 }
 
 .mint_container {
-  width: 25%;
+  width: 450px;
   min-width: 400px;
   margin: auto;
   margin-top: 3em;
@@ -220,7 +220,14 @@ input::-webkit-inner-spin-button {
 }
 
 .mintnow {
+  text-align: center;
   min-width: 200px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.mintnow button {
   margin: auto;
 }
 
@@ -252,7 +259,7 @@ input::-webkit-inner-spin-button {
 
 .description {
   margin: 10px;
-  min-width: 250px;
+  width: 314px;
   justify-content: space-between;
 }
 
@@ -265,5 +272,15 @@ input::-webkit-inner-spin-button {
 }
 
 .w-100 {
-  width: 100%;
+  width: 314px;
+}
+
+@media screen and (max-width: 499px) {
+  .mint_container {
+    width: 300px !important;
+  }
+
+  .mint_container * {
+    font-size: 13px !important;
+  }
 }
