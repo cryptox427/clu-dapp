@@ -339,7 +339,7 @@ function App() {
                       <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "PublicSale" : "Wating for Presale now."}</b>
                     </div>
                     <div className='flex flex-row description'>
-                      <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.1 ETH" : mintStep == 2 ? "0.15 ETH" : ""}</b>
+                      <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.1 TBA" : mintStep == 2 ? "0.15 TBA" : ""}</b>
                     </div>
                     <div className='mintnow'>
                       <button onClick={mintNow} className={'flex justify-center items-center rounded-full px-6 py-2 mt-10 text-sm text-white relative h-10 cta-button'}>

@@ -255,3 +255,8 @@ input::-webkit-inner-spin-button {
   min-width: 250px;
   justify-content: space-between;
 }
+
+.description b:first {
+  min-width: 100px;
+  text-align: left;
+}
