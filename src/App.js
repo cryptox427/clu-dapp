@@ -261,7 +261,7 @@ function App() {
 
   return (
     <div className={'background overflow-y-scroll navbar_container'}>
-      <nav className={'py-5 hidden md:flex justify-between items-center  px-3 z-10 '}>
+      <nav className={'py-5 hidden xl:flex justify-between items-center  px-3 z-10 '}>
         <img src={require('./assets/images/main.png').default} className={'w-12 object-contain logo_img'} />
         <div className={'flex items-center'}>
           <div className={'flex items-center space-x-7'}>
