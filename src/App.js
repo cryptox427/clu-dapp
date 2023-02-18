@@ -23,11 +23,6 @@ import whiteListAddresses from './utils/whitelists.json'
 const Cancel = 'images/cancel.svg';
 const UnicornAddress = "0x46829799b36E6D73b51354F7BF5d87402B62587D";
 
-
-
-
-
-
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [mintAmount, setMintAmount] = useState(0);
@@ -47,9 +42,6 @@ function App() {
 
   console.log(whiteListAddresses);
 
-  // let  a  = new array();
-
-  // const swiperRef = useRef(null)
   const navItems = [
     { name: 'About', id: 'about' },
     { name: 'NFTs', id: 'nfts' },
@@ -62,12 +54,6 @@ function App() {
   ]
 
   useEffect(async () => {
-
-
-
-    // let date1 = new Date(unix_presale_time * 1000)
-    // let date2 = new Date(unix_public_time * 1000)
-    // console.log(date1, date2);
 
     const { ethereum } = window;
     if (ethereum && account) {
@@ -216,9 +202,6 @@ function App() {
 
           const { keccak256 } = ethers.utils;
 
-
-          // const whiteListAddresses = ["0x129F3153E143A32CFb3FC0ca023375109491f435", "0x7a90d38a3c892d6B9236Af279e9243B2Cf3F3022", "0x5DAF9b12eb0425A0a0A77F51c13Caf82649368e0"];
-
           const leaves = whiteListAddresses.map(x => keccak256(x));
           const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
 
@@ -261,7 +244,7 @@ function App() {
             return;
           }
         }
-        ToastsStore.success("Sorry. NFT Mint did not work.");
+        ToastsStore.success("Sorry. It is not presale time yet.");
       } else {
         ToastsStore.error("Please connect the wallet");
       }
@@ -334,7 +317,7 @@ function App() {
 
       <div className={'pt-10 pb-16'} id={'nfts'}>
         <img src={require('./assets/images/main.png').default} className="mainImage" />
-        <div className={'flex justify-center items-center text-5xl font-semibold text-color-blue my-10'}>NFT MINT</div>
+        <div className={'flex justify-center items-center text-5xl font-semibold text-color-blue my-10'}>CRAZY LITTLE UNICORNS</div>
 
         <div className="mint_container">
 
@@ -343,8 +326,6 @@ function App() {
               {txnState ? (
                 <div className="mint-area flex justify-center flex-col items-center ">
                   <div className="spinner-container">
-                    {/* <div className="loading-spinner">
-                    </div> */}
                     <img width={300} src={require('./assets/images/loading.gif').default} />
                   </div>
                   <div className={'mt-5 text-center text-2xl text-white font-medium loading-character'}>Pending Transaction now...</div>
@@ -392,7 +373,6 @@ function App() {
         </div>
         <Modal
           isOpen={isOpen}
-          // onAfterOpen={afterOpenModal}
           closeModal={closeModal}
           style={customStyles}
           contentLabel="Example Modal"
