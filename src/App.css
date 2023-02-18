@@ -193,8 +193,9 @@ input::-webkit-inner-spin-button {
 
 .mainImage {
   width: 300px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   margin: auto;
+  border: 3px solid white;
 }
 
 .mint_container {
