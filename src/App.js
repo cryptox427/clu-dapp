@@ -300,7 +300,7 @@ function App() {
 
       <div className={'pt-10 pb-16'} id={'nfts'}>
         <img src={require('./assets/images/main.png').default} className="mainImage" />
-        <div className={'flex justify-center items-center text-5xl font-semibold text-color my-10'}>WELCOME TO CRAZYTOWN</div>
+        <div className={'flex justify-center items-center text-5xl font-semibold text-color-purple my-10'}>WELCOME TO CRAZYTOWN</div>
 
         <div className="mint_container">
 
