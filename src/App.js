@@ -50,7 +50,7 @@ function App() {
       const accounts = await provider.listAccounts();
       if (accounts.length > 0) {
         const { chainId } = await provider.getNetwork();
-        if (chainId !== 0x5) {
+        if (chainId !== 0x1) {
           ToastsStore.error("Please set network properly.");
           return;
         }
@@ -239,7 +239,7 @@ function App() {
       const accounts = await provider.listAccounts();
       if (accounts.length > 0) {
         const { chainId } = await provider.getNetwork();
-        if (chainId !== 0x5) {
+        if (chainId !== 0x1) {
           ToastsStore.error("Please set network properly.");
           return;
         }
