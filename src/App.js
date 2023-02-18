@@ -58,6 +58,14 @@ function App() {
   ]
 
   useEffect(async () => {
+
+    let unix_presale_time = 1676750400;
+    let unix_public_time = 1676772000;
+
+    // let date1 = new Date(unix_presale_time * 1000)
+    // let date2 = new Date(unix_public_time * 1000)
+    // console.log(date1, date2);
+
     const { ethereum } = window;
     if (ethereum && account) {
       let provider = new ethers.providers.Web3Provider(ethereum);
@@ -164,8 +172,7 @@ function App() {
         const signer = provider.getSigner();
         const UnicornContract = new ethers.Contract(UnicornAddress, UnicornsABI, signer);
         const presalePrice = await UnicornContract.preSalePrice();
-        console.log(presalePrice);
-        console.log('presalePrice');
+        const publicSalePrice = await UnicornContract.publicSalePrice();
 
         let balance = await provider.getBalance(accounts[0]);
         // balance = balance / (10 ** 18);
@@ -184,23 +191,6 @@ function App() {
 
           const { keccak256 } = ethers.utils;
 
-          // const whiteListAddresses = ["0x129F3153E143A32CFb3FC0ca023375109491f435", "0x7a90d38a3c892d6B9236Af279e9243B2Cf3F3022", "0x5DAF9b12eb0425A0a0A77F51c13Caf82649368e0"];
-
-          // const leaves = whiteListAddresses.map(x => keccak256(x));
-
-          // const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
-
-          // const root = '0x' + tree.getRoot().toString('hex');
-          // console.log(account);
-          // const leaf = keccak256(account);
-
-          // const proof = tree.getProof(leaf);
-          // console.info("Root: ", root);
-          // console.info("Proof: ", proof);
-          // console.log(proof[0].data);
-
-          // console.log(tree.verify(proof, leaf, root));
-
 
           const whiteListAddresses = ["0x129F3153E143A32CFb3FC0ca023375109491f435", "0x7a90d38a3c892d6B9236Af279e9243B2Cf3F3022", "0x5DAF9b12eb0425A0a0A77F51c13Caf82649368e0"];
 
@@ -210,19 +200,15 @@ function App() {
           const root = '0x' + tree.getRoot().toString('hex');
           const leaf = keccak256(whiteListAddresses[2]);
           const proof = tree.getProof(leaf).map(x => '0x' + x.data.toString('hex'));
-          console.info("Root: ", root);
-          console.info("Proof: ", proof);
 
           try {
-            // const nftTxn = await UnicornContract.adminMint(mintAmount, { value: `${price}` });
-            console.log(UnicornContract);
             const nftTxn = await UnicornContract.preSale(mintAmount, proof, { value: `${price}` });
             ToastsStore.success("Minting...please wait.")
             await nftTxn.wait();
             ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
           } catch (e) {
             console.log(e)
-            ToastsStore.error("Sorry. Error occured. Users can only mint 2 nfts total.");
+            ToastsStore.error("Sorry. Error occured.");
             setTxnState(false);
             tokenInitFunction();
             return;
@@ -244,7 +230,7 @@ function App() {
             ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
           } catch (e) {
             console.log(e)
-            ToastsStore.error("Sorry. Error occured. Users can only mint 2 nfts total.");
+            ToastsStore.error("Sorry. Error occured.");
             setTxnState(false);
             tokenInitFunction();
             return;
@@ -310,15 +296,8 @@ function App() {
             <img src={require('./assets/images/menu-icon.svg').default} alt={''} className={'w-4'} />
           </a>
         </div>
-        {isOpen && <ul className={'flex flex-col space-y-3 mt-4'}>
-          {navItems.map((item, i) => <li
-            className={'text-white uppercase text-xs text-white hover:text-gray-100 cursor-pointer'}><a onClick={() => onClickNav(item.id)}
-              href={'#' + item.id}>{item.name}</a></li>)}
-        </ul>}
-        {isOpen && <div className={'flex items-center space-x-10 mt-4 mb-4'}>
-          <a><img src={require('./assets/images/icon-discord.svg').default} alt={''} /> </a>
-          <a><img src={require('./assets/images/icon-twitter.svg').default} alt={''} /> </a>
 
+        {isOpen && <div className={'flex items-center space-x-10 mt-4 mb-4'}>
 
           <button className={'flex justify-center items-center rounded-full px-6 py-2 text-sm text-white relative h-10'}>
             <img src={require('./assets/images/btn.png').default} className={'absolute h-14 w-48'} style={{ zIndex: -1 }} />
@@ -330,50 +309,62 @@ function App() {
 
       <div className={'pt-10 pb-16'} id={'nfts'}>
         <img src={require('./assets/images/main.png').default} className="mainImage" />
-        <div className={'flex justify-center items-center text-5xl font-semibold text-color my-10'}>NFTS</div>
-        {account ? (
-          <>
-            {txnState ? (
-              <div className="mint-area flex justify-center flex-col items-center ">
-                <div className="spinner-container">
-                  <div className="loading-spinner">
+        <div className={'flex justify-center items-center text-5xl font-semibold text-color-blue my-10'}>NFT MINT</div>
+
+        <div className="mint_container">
+
+          {account ? (
+            <>
+              {txnState ? (
+                <div className="mint-area flex justify-center flex-col items-center ">
+                  <div className="spinner-container">
+                    {/* <div className="loading-spinner">
+                    </div> */}
+                    <img width={300} src={require('./assets/images/loading.gif').default} />
+                  </div>
+                  <div className={'mt-5 text-center text-2xl text-white font-medium loading-character'}>Pending Transaction now...</div>
+                </div>
+              ) : (
+                <div className="mint-area flex justify-center flex-col items-center ">
+                  <div className={'flex w-full justify-center items-center text-5xl font-semibold text-color my-10'}>MINT</div>
+
+                  <div className='flex w-1/3 justify-center items-center flex-col'>
+                    <div className='mint_amount flex flex-row'>
+                      <button className="rounded-full w-8 ctrl-number" onClick={subMintNumber}>
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        id="first_name"
+                        value={mintAmount}
+                        readOnly
+                        className="rounded flex text-black ml-5 mr-5" required />
+                      <button className="rounded-full w-8 ctrl-number" onClick={addMintNumber}>
+                        +
+                      </button>
+                    </div>
+                    <div className='mintnow'>
+                      <button onClick={mintNow} className={'flex justify-center items-center rounded-full px-6 py-2 mt-10 text-sm text-white relative h-10 cta-button'}>
+                        <img src={require('./assets/images/btn.png').default} className={'absolute h-14 w-48'} style={{ zIndex: 1 }} />
+                        <font>MINT NOW</font>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className={'mt-5 text-center text-2xl text-white font-medium loading-character'}>Pending Transaction now...</div>
-              </div>
-            ) : (
-              <div className="mint-area flex justify-center flex-col items-center ">
-                <div className={'flex w-full justify-center items-center text-5xl font-semibold text-color my-10'}>MINT</div>
+              )}
 
-                <div className='flex w-1/3 justify-center items-center flex-col'>
-                  <div className='mint_amount flex flex-row'>
-                    <button className="rounded-full w-8 ctrl-number" onClick={subMintNumber}>
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      id="first_name"
-                      value={mintAmount}
-                      readOnly
-                      className="rounded flex text-black ml-5 mr-5" required />
-                    <button className="rounded-full w-8 ctrl-number" onClick={addMintNumber}>
-                      +
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={mintNow} className={'flex justify-center items-center rounded-full px-6 py-2 mt-10 text-sm text-white relative h-10 cta-button'}>
-                      <img src={require('./assets/images/btn.png').default} className={'absolute h-14 w-48'} style={{ zIndex: -1 }} />
-                      MINT NOW
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </>
-        ) : (
-          <></>
-        )}
+            </>
+          ) : (
+            <>
+              <p>
+                White text
+              </p>
+              <button onClick={walletModalOpen} className={'component_wallet'}>
+                CONNECT WALLET
+              </button>
+            </>
+          )}
+        </div>
         <Modal
           isOpen={isOpen}
           // onAfterOpen={afterOpenModal}

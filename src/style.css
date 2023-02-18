@@ -4,16 +4,12 @@
   --back: url(https://cdn2.bulbagarden.net/upload/1/17/Cardback.jpg);
   --charizard1: #fac;
   --charizard2: #ddccaa;
-  --charizardfront: url(./assets/images/pet1.png);
   --pika1: #54a29e;
   --pika2: #a79d66;
-  --pikafront: url(./assets/images/pet2.png);
   --eevee1: #efb2fb;
   --eevee2: #acc6f8;
-  --eeveefront: url(./assets/images/pet3.png);
   --mewtwo1: #efb2fb;
   --mewtwo2: #acc6f8;
-  --mewtwofront: url(https://assets.codepen.io/13471/mewtwo-gx.webp);
 }
 
 .card {
@@ -50,7 +46,6 @@
 .card.charizard {
   --color1: var(--charizard1);
   --color2: var(--charizard2);
-  --front: var(--charizardfront);
 }
 
 .card.pika {
@@ -431,7 +426,6 @@ p {
   font-weight: 400;
   font-size: 18px;
   padding: 1em;
-  background: rgba(0, 0, 0, 0.3);
   margin-top: 0;
 }
 
