@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import Modal from 'react-modal'
 import { ethers } from "ethers";
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 
 import { injected, walletconnector, bsc } from './utils/connector'
 import { wallets } from './components/constants'
@@ -351,7 +352,14 @@ function App() {
                   </div>
                   :
                   <h4>
-                    AWESOME! I just joined the Crazy Little Unicorns fam! If you’re busy chasing your dreams + working on living your best life, come join us. a little crazy goes a long way! 🦄🔥🚀 www.mint.crazylittleunicorns.com
+                    AWESOME!
+                    <TwitterShareButton
+                      url={'I just joined the Crazy Little Unicorns fam! If you’re busy chasing your dreams + working on living your best life, come join us. a little crazy goes a long way! 🦄🔥🚀 www.mint.crazylittleunicorns.com'}
+                      quote={'Dummy text!'}
+                      hashtag="#muo"
+                  >
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
                   </h4>
                 }
                 </div>

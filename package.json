@@ -24,6 +24,7 @@
     "react-google-charts": "^4.0.0",
     "react-modal": "^3.16.1",
     "react-scripts": "4.0.1",
+    "react-share": "^4.4.1",
     "react-toasts": "^3.0.6",
     "swiper": "^8.4.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
@@ -55,4 +56,4 @@
     ]
   },
   "homepage": "./"
-  }
+}
