@@ -31,7 +31,7 @@ function App() {
   const { account, chainId, activate, deactivate } = useWeb3React();
 
   //if mintstep is 1, it is presale. else that is 2 it is public sale.
-  const [mintStep, setMintStep] = useState(2);
+  const [mintStep, setMintStep] = useState(0);
   const [busy, setBusy] = useState(false);
 
   const [tokenIdList, setTokenIdList] = useState([]);
@@ -75,7 +75,7 @@ function App() {
 
   }
 
-  // setInterval(getMintStep, 1000);
+  setInterval(getMintStep, 1000);
 
 
   const customStyles = {
