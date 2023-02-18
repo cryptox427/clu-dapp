@@ -31,7 +31,7 @@ function App() {
   const { account, chainId, activate, deactivate } = useWeb3React();
 
   //if mintstep is 1, it is presale. else that is 2 it is public sale.
-  const [mintStep, setMintStep] = useState(0);
+  const [mintStep, setMintStep] = useState(2);
   const [busy, setBusy] = useState(false);
 
   const [tokenIdList, setTokenIdList] = useState([]);
@@ -75,7 +75,7 @@ function App() {
 
   }
 
-  setInterval(getMintStep, 1000);
+  // setInterval(getMintStep, 1000);
 
 
   const customStyles = {
@@ -324,7 +324,7 @@ function App() {
                       </button>
                     </div>
                     <div className='flex flex-row description'>
-                      <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "Public Sale" : "Wating for Presale now."}</b>
+                      <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "PublicSale" : "Wating for Presale now."}</b>
                     </div>
                     <div className='flex flex-row description'>
                       <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.1 ETH" : mintStep == 2 ? "0.15 ETH" : ""}</b>
