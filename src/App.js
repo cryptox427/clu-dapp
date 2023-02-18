@@ -317,7 +317,7 @@ function App() {
               ) : (
                 <div className="mint-area flex justify-center flex-col items-center ">
                   <div className={'flex w-full justify-center items-center text-5xl font-semibold text-color my-10'}>MINT</div>
-                  {mintSuccess == false ? 
+                  {mintSuccess == false ?
                   <div className='flex w-1/3 justify-center items-center flex-col w-100'>
                     <div className='mint_amount flex flex-row'>
                       <button className="rounded-full w-8 ctrl-number" onClick={subMintNumber}>
@@ -340,7 +340,7 @@ function App() {
                       <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "PublicSale" : "Wating for Presale now."}</b>
                     </div>
                     <div className='flex flex-row description'>
-                      <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.1 TBA" : mintStep == 2 ? "0.15 TBA" : ""}</b>
+                      <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.01 ETH" : mintStep == 2 ? "0.015 ETH" : ""}</b>
                     </div>
                     <div className='mintnow'>
                       <button onClick={mintNow} className={'flex justify-center items-center rounded-full px-6 py-2 mt-10 text-sm text-white relative h-10 cta-button'}>
