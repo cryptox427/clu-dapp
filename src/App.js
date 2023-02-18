@@ -39,6 +39,7 @@ function App() {
   const [activeNumber, setActiveNumber] = useState([]);
   const [claimState, setClaimState] = useState(false);
   const [updateState, setUpdateState] = useState(false);
+  const [mintSuccess, setMintSuccess] = useState(false);
 
   // console.log(whiteListAddresses);
 
@@ -134,6 +135,9 @@ function App() {
   }
 
   const addMintNumber = async () => {
+    if (mintAmount >= 5)
+      setMintAmount(5);
+    else
     setMintAmount(mintAmount + 1);
   }
 
@@ -190,7 +194,8 @@ function App() {
             const nftTxn = await UnicornContract.preSale(mintAmount, proof, { value: `${price}` });
             ToastsStore.success("Minting...please wait.");
             await nftTxn.wait();
-            ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
+            setMintSuccess(true);
+            // ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
           } catch (e) {
             console.log(e)
             ToastsStore.error("Sorry. NFT not performed.");
@@ -212,7 +217,8 @@ function App() {
             const nftTxn = await UnicornContract.publicSale(mintAmount, { value: `${price}` });
             await nftTxn.wait();
             ToastsStore.success("Minting...please wait.");
-            ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
+            // ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
+            setMintSuccess(true);
           } catch (e) {
             console.log(e)
             ToastsStore.error("Sorry. Error occured.");
@@ -221,7 +227,7 @@ function App() {
             return;
           }
         }
-        ToastsStore.success("Sorry. It is not presale time yet.");
+        ToastsStore.error("Sorry. It is not presale time yet.");
       } else {
         ToastsStore.error("Please connect the wallet");
       }
@@ -294,7 +300,7 @@ function App() {
 
       <div className={'pt-10 pb-16'} id={'nfts'}>
         <img src={require('./assets/images/main.png').default} className="mainImage" />
-        <div className={'flex justify-center items-center text-5xl font-semibold text-color-blue my-10'}>CRAZY LITTLE UNICORNS</div>
+        <div className={'flex justify-center items-center text-5xl font-semibold text-color my-10'}>WELCOME TO CRAZYTOWN</div>
 
         <div className="mint_container">
 
@@ -310,7 +316,7 @@ function App() {
               ) : (
                 <div className="mint-area flex justify-center flex-col items-center ">
                   <div className={'flex w-full justify-center items-center text-5xl font-semibold text-color my-10'}>MINT</div>
-
+                  {mintSuccess == false ? 
                   <div className='flex w-1/3 justify-center items-center flex-col'>
                     <div className='mint_amount flex flex-row'>
                       <button className="rounded-full w-8 ctrl-number" onClick={subMintNumber}>
@@ -339,6 +345,11 @@ function App() {
                       </button>
                     </div>
                   </div>
+                  :
+                  <h4>
+                    AWESOME! I just joined the Crazy Little Unicorns fam! If you’re busy chasing your dreams + working on living your best life, come join us. a little crazy goes a long way! 🦄🔥🚀 www.mint.crazylittleunicorns.com
+                  </h4>
+                }
                 </div>
               )}
 

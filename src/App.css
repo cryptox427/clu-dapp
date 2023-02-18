@@ -211,6 +211,10 @@ input::-webkit-inner-spin-button {
   color: #3e65cd;
 }
 
+.text-color-purple {
+  color: #a342ca;
+}
+
 .text-color {
   color: #ff52c6;
 }
