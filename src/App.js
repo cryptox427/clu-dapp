@@ -260,10 +260,10 @@ function App() {
 
 
   return (
-    <div className={'background overflow-y-scroll'}>
-      <nav className={'py-5 hidden xl:flex justify-between items-center  px-3 z-10'}>
+    <div className={'background overflow-y-scroll navbar_container'}>
+      <nav className={'py-5 hidden md:flex justify-between items-center  px-3 z-10 '}>
         <img src={require('./assets/images/main.png').default} className={'w-12 object-contain logo_img'} />
-        <div className={'flex items-center connect_wallet_btn'}>
+        <div className={'flex items-center'}>
           <div className={'flex items-center space-x-7'}>
             {!account ? (
               <button onClick={walletModalOpen} className={'flex justify-center items-center rounded-full px-6 py-2 text-sm text-white relative h-10'}>
