@@ -260,6 +260,6 @@ input::-webkit-inner-spin-button {
   min-width: 100px;
   text-align: left;
 }
-.connect_wallet_btn {
+/* .connect_wallet_btn {
   display: none;
-}
+} */
