@@ -26,7 +26,7 @@ const UnicornAddress = "0x5A5dDF94B6DD86d2914c5c496107026D878927df";
 function App() {
   const [isOpen, setOpen] = useState(false);
   // const [modalOpen, setModalOpen] = useState(false);
-  const [mintAmount, setMintAmount] = useState(0);
+  const [mintAmount, setMintAmount] = useState(1);
   const [txnState, setTxnState] = useState(false);
 
   const { account, chainId, activate, deactivate } = useWeb3React();
@@ -129,8 +129,8 @@ function App() {
   }
 
   const subMintNumber = async () => {
-    if (mintAmount - 1 <= 0)
-      setMintAmount(0);
+    if (mintAmount - 1 <= 1)
+      setMintAmount(1);
     else
       setMintAmount(mintAmount - 1);
   }
