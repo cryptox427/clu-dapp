@@ -21,7 +21,7 @@ import UnicornsABI from "./contracts/Unicorn.json";
 import whiteListAddresses from './utils/whitelists.json'
 
 const Cancel = 'images/cancel.svg';
-const UnicornAddress = "0x46829799b36E6D73b51354F7BF5d87402B62587D";
+const UnicornAddress = "0x5A5dDF94B6DD86d2914c5c496107026D878927df";
 
 function App() {
   const [isOpen, setOpen] = useState(false);
@@ -40,7 +40,7 @@ function App() {
   const [claimState, setClaimState] = useState(false);
   const [updateState, setUpdateState] = useState(false);
 
-  console.log(whiteListAddresses);
+  // console.log(whiteListAddresses);
 
   useEffect(async () => {
 
@@ -66,6 +66,9 @@ function App() {
     let date1 = new Date(unix_presale_time * 1000)
     let date2 = new Date(unix_public_time * 1000)
     let date = new Date();
+
+    var seconds = (date1 - date) / 1000;
+    // console.log(seconds);
 
 
     if (date > date1)
@@ -149,7 +152,7 @@ function App() {
       const accounts = await provider.listAccounts();
       if (accounts.length > 0) {
         const { chainId } = await provider.getNetwork();
-        if (chainId !== 0x5) {
+        if (chainId !== 0x1) {
           return;
         }
 
