@@ -18,6 +18,8 @@ import 'swiper/modules/pagination/pagination.min.css'
 
 import UnicornsABI from "./contracts/Unicorn.json";
 
+import whiteListAddresses from './utils/whitelists.json' 
+
 const Cancel = 'images/cancel.svg';
 const UnicornAddress = "0x46829799b36E6D73b51354F7BF5d87402B62587D";
 
@@ -34,7 +36,7 @@ function App() {
   const { account, chainId, activate, deactivate } = useWeb3React();
 
   //if mintstep is 1, it is presale. else that is 2 it is public sale.
-  const [mintStep, setMintStep] = useState(1);
+  const [mintStep, setMintStep] = useState(0);
   const [busy, setBusy] = useState(false);
 
   const [tokenIdList, setTokenIdList] = useState([]);
@@ -42,6 +44,8 @@ function App() {
   const [activeNumber, setActiveNumber] = useState([]);
   const [claimState, setClaimState] = useState(false);
   const [updateState, setUpdateState] = useState(false);
+
+  console.log(whiteListAddresses);
 
   // let  a  = new array();
 
@@ -59,8 +63,7 @@ function App() {
 
   useEffect(async () => {
 
-    let unix_presale_time = 1676750400;
-    let unix_public_time = 1676772000;
+
 
     // let date1 = new Date(unix_presale_time * 1000)
     // let date2 = new Date(unix_public_time * 1000)
@@ -79,6 +82,26 @@ function App() {
       }
     }
   }, [account])
+
+
+  const getMintStep = async () => {
+    let unix_presale_time = 1676750400;
+    let unix_public_time = 1676772000;
+
+    let date1 = new Date(unix_presale_time * 1000)
+    let date2 = new Date(unix_public_time * 1000)
+    let date = new Date();
+   
+    
+    if(date > date1)
+      setMintStep(1);
+    else if(date > date2)
+      setMintStep(2);
+
+  }
+
+  setInterval(getMintStep, 1000);
+
 
   const customStyles = {
     content: {
@@ -105,6 +128,8 @@ function App() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+
+
 
   const walletModalOpen = async () => {
     setOpen(true);
@@ -192,39 +217,39 @@ function App() {
           const { keccak256 } = ethers.utils;
 
 
-          const whiteListAddresses = ["0x129F3153E143A32CFb3FC0ca023375109491f435", "0x7a90d38a3c892d6B9236Af279e9243B2Cf3F3022", "0x5DAF9b12eb0425A0a0A77F51c13Caf82649368e0"];
+          // const whiteListAddresses = ["0x129F3153E143A32CFb3FC0ca023375109491f435", "0x7a90d38a3c892d6B9236Af279e9243B2Cf3F3022", "0x5DAF9b12eb0425A0a0A77F51c13Caf82649368e0"];
 
           const leaves = whiteListAddresses.map(x => keccak256(x));
           const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
 
           const root = '0x' + tree.getRoot().toString('hex');
-          const leaf = keccak256(whiteListAddresses[2]);
+          const leaf = keccak256(account);
           const proof = tree.getProof(leaf).map(x => '0x' + x.data.toString('hex'));
 
           try {
             const nftTxn = await UnicornContract.preSale(mintAmount, proof, { value: `${price}` });
-            ToastsStore.success("Minting...please wait.")
+            ToastsStore.success("Minting...please wait.");
             await nftTxn.wait();
             ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
           } catch (e) {
             console.log(e)
-            ToastsStore.error("Sorry. Error occured.");
+            ToastsStore.error("Sorry. NFT not performed.");
             setTxnState(false);
             tokenInitFunction();
             return;
           }
         }
-        else {
-          let price = mintAmount * 1;
-          if (balance <= mintAmount * presalePrice) {
-            ToastsStore.error("Sorry. Fund is insufficient.");
+        else if (mintStep == 2) {
+          let price = mintAmount * publicSalePrice;
+          if (balance <= mintAmount * publicSalePrice) {
+            ToastsStore.error("Sorry. NFT Mint did not work.");
             setTxnState(false);
             tokenInitFunction();
             return;
           }
 
           try {
-            const nftTxn = await UnicornContract.mintPublic(mintAmount, { value: `${price}` });
+            const nftTxn = await UnicornContract.publicSale(mintAmount, { value: `${price}` });
             await nftTxn.wait();
             ToastsStore.success("Minting...please wait.");
             ToastsStore.success(`Minted, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`);
@@ -236,7 +261,7 @@ function App() {
             return;
           }
         }
-        ToastsStore.success("NFT minting successed!");
+        ToastsStore.success("Sorry. NFT Mint did not work.");
       } else {
         ToastsStore.error("Please connect the wallet");
       }

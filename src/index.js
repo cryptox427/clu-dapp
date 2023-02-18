@@ -12,7 +12,7 @@ import './assets/fonts/Futura Medium Italic font.ttf'
 import './assets/fonts/Futura XBlk BT.ttf'
 
 import { Web3ReactProvider } from '@web3-react/core'
-import getLibrary from './utils/getLibrary' 
+import getLibrary from './utils/getLibrary'
 
 ReactDOM.render(
   <React.StrictMode>
