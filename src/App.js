@@ -334,7 +334,7 @@ function App() {
                       </button>
                     </div>
                     <div className='flex flex-row description'>
-                      <b>Max Amount:</b> &nbsp;&nbsp; <b>5</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <b>Max Amount:</b> &nbsp;&nbsp; <b>5</b>
                     </div>
                     <div className='flex flex-row description'>
                       <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "PublicSale" : "Wating for Presale now."}</b>
