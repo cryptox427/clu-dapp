@@ -361,7 +361,7 @@ function App() {
           ) : (
             <>
               <p>
-                Let's immerse ourselves in the world of cryptocurrency and find our existence in the world of NFT.
+                A little crazy goes a long way.
               </p>
               <button onClick={walletModalOpen} className={'component_wallet'}>
                 CONNECT WALLET
