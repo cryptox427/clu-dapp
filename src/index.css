@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Futura Bold";
+    src: local("Futura Bold"),
+    url("./assets/fonts/Futura Bold font.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Futura Book";
+    src: local("Futura Book"),
+    url("./assets/fonts/Futura Book font.ttf") format("truetype");
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Futura Extra Black";
+    src: local("Futura Extra Black"),
+    url("./assets/fonts/Futura Extra Black font.ttf") format("truetype");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Futura Light";
+    src: local("Futura Light"),
+    url("./assets/fonts/Futura Light font.ttf") format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Futura Medium";
+    src: local("Futura Medium"),
+    url("./assets/fonts/futura medium bt.ttf") format("truetype");
+    font-weight: 400;
+}
