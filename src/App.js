@@ -18,7 +18,7 @@ import 'swiper/modules/pagination/pagination.min.css'
 
 import UnicornsABI from "./contracts/Unicorn.json";
 
-import whiteListAddresses from './utils/whitelists.json' 
+import whiteListAddresses from './utils/whitelists.json'
 
 const Cancel = 'images/cancel.svg';
 const UnicornAddress = "0x46829799b36E6D73b51354F7BF5d87402B62587D";
@@ -31,7 +31,7 @@ function App() {
   const { account, chainId, activate, deactivate } = useWeb3React();
 
   //if mintstep is 1, it is presale. else that is 2 it is public sale.
-  const [mintStep, setMintStep] = useState(2);
+  const [mintStep, setMintStep] = useState(0);
   const [busy, setBusy] = useState(false);
 
   const [tokenIdList, setTokenIdList] = useState([]);
@@ -41,17 +41,6 @@ function App() {
   const [updateState, setUpdateState] = useState(false);
 
   console.log(whiteListAddresses);
-
-  const navItems = [
-    { name: 'About', id: 'about' },
-    { name: 'NFTs', id: 'nfts' },
-    { name: 'Tokenomics', id: 'tokenomics' },
-    // {name: 'Roadmap', id: 'roadmap'},
-    { name: 'Swap', id: 'swap' },
-    { name: 'NFT Staking', id: 'nft_staking' },
-    { name: 'Team', id: 'team' },
-    { name: 'Partners', id: 'partners' },
-  ]
 
   useEffect(async () => {
 
@@ -77,16 +66,16 @@ function App() {
     let date1 = new Date(unix_presale_time * 1000)
     let date2 = new Date(unix_public_time * 1000)
     let date = new Date();
-   
-    
-    if(date > date1)
+
+
+    if (date > date1)
       setMintStep(1);
-    else if(date > date2)
+    else if (date > date2)
       setMintStep(2);
 
   }
 
-  // setInterval(getMintStep, 1000);
+  setInterval(getMintStep, 1000);
 
 
   const customStyles = {
@@ -105,17 +94,6 @@ function App() {
       minWidth: '250px',
     },
   }
-
-
-  const onClickNav = (id) => {
-    setOpen(false)
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
-
 
   const walletModalOpen = async () => {
     setOpen(true);
@@ -153,9 +131,6 @@ function App() {
   }
 
   const addMintNumber = async () => {
-    // if (mintAmount >= 2)
-    //   setMintAmount(2);
-    // else
     setMintAmount(mintAmount + 1);
   }
 
@@ -186,7 +161,6 @@ function App() {
         const publicSalePrice = await UnicornContract.publicSalePrice();
 
         let balance = await provider.getBalance(accounts[0]);
-        // balance = balance / (10 ** 18);
         balance = Number(balance);
 
         if (mintStep == 1) {
@@ -348,6 +322,12 @@ function App() {
                       <button className="rounded-full w-8 ctrl-number" onClick={addMintNumber}>
                         +
                       </button>
+                    </div>
+                    <div className='flex flex-row description'>
+                      <b>Mint Step:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "Presale" : mintStep == 2 ? "Public Sale" : "Wating for Presale now."}</b>
+                    </div>
+                    <div className='flex flex-row description'>
+                      <b>Mint Price:</b> &nbsp;&nbsp; <b>{mintStep == 1 ? "0.1 ETH" : mintStep == 2 ? "0.15 ETH" : ""}</b>
                     </div>
                     <div className='mintnow'>
                       <button onClick={mintNow} className={'flex justify-center items-center rounded-full px-6 py-2 mt-10 text-sm text-white relative h-10 cta-button'}>

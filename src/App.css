@@ -241,3 +241,13 @@ input::-webkit-inner-spin-button {
 .component_wallet:hover {
   background-color: #df32ab;
 }
+
+.mint_amount {
+  margin-bottom: 15px;
+}
+
+.description {
+  margin: 10px;
+  min-width: 250px;
+  justify-content: space-between;
+}
