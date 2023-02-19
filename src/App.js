@@ -58,6 +58,7 @@ function App() {
           return;
         }
       }
+      setInterval(getMintStep, 1000);
     }
   }, [account])
 
@@ -73,15 +74,14 @@ function App() {
     var seconds = (date1 - date) / 1000;
     // console.log(seconds);
 
-
-    if (date > date1)
-      setMintStep(1);
-    else if (date > date2)
+    if (date > date2) {
       setMintStep(2);
-
+    } else if (date > date1) {
+      setMintStep(1);
+    }
   }
 
-  setInterval(getMintStep, 1000);
+
 
 
   const customStyles = {
